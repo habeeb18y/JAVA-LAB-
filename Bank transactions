@@ -1,0 +1,152 @@
+Write a Java program to demonstrate the concepts 
+a. Constructor overloading and method overloading  
+b. Static keyword 
+
+
+package banking;
+
+	import java.util.Scanner;
+
+	public class BankAccount {
+
+	    private String name;
+	    private double balance;
+	    private String accountType;
+
+	    // static variable
+	    private static int totalAccounts = 0;
+
+	    // Constructor 1: Only Name
+	    public BankAccount(String name) {
+	        this.name = name;
+	        this.accountType = "Savings";
+	        this.balance = 0;
+	        totalAccounts++;
+	    }
+
+	    // Constructor 2: Name + Deposit
+	    public BankAccount(String name, double initialDeposit) {
+	        this.name = name;
+	        this.balance = initialDeposit;
+	        this.accountType = "Savings";
+	        totalAccounts++;
+	    }
+
+	    // Constructor 3: Name + Deposit + Account Type
+	    public BankAccount(String name, double initialDeposit, String accountType) {
+	        this.name = name;
+	        this.balance = initialDeposit;
+	        this.accountType = accountType;
+	        totalAccounts++;
+	    }
+
+	    // Deposit overloading
+	    public void deposit(double amount) {
+	        balance += amount;
+	        System.out.println("Deposited " + amount + ". New Balance = " + balance);
+	    }
+
+	    public void deposit(double amount, String type) {
+	        balance += amount;
+	        System.out.println("Deposited " + amount + " via " + type + ". New Balance = " + balance);
+	    }
+
+	    // Withdraw method
+	    public void withdraw(double amount) {
+	        if (amount > balance) {
+	            System.out.println("Insufficient balance! Withdrawal failed.");
+	        } else {
+	            balance -= amount;
+	            System.out.println("Withdrawn " + amount + ". Remaining Balance = " + balance);
+	        }
+	    }
+
+	    public static void displayTotalAccounts() {
+	        System.out.println("Total Accounts Created = " + totalAccounts);
+	    }
+
+	    public void displayInfo() {
+	        System.out.println("Account Holder : " + name);
+	        System.out.println("Account Type   : " + accountType);
+	        System.out.println("Balance        : " + balance);
+	    }
+
+	    // MAIN METHOD WITH USER INPUT
+	    public static void main(String[] args) {
+
+	        Scanner sc = new Scanner(System.in);
+	        int count = 0;
+
+	        do {
+
+	            System.out.println("Enter account holder name:");
+	            String name = sc.nextLine();
+
+	            System.out.println("Enter 1 for default account (Savings, 0 balance)");
+	            System.out.println("Enter 2 for account with initial deposit");
+	            System.out.println("Enter 3 for account with deposit + type");
+	            System.out.println("Enter 4 to skip (Do nothing)");
+	            int choice = sc.nextInt();
+	            sc.nextLine();
+
+	            // Skip logic
+	            if (choice == 4) {
+	                System.out.println("Skipping... No account created.\n");
+	                count++;
+	                continue;  // Skip everything else
+	            }
+
+	            BankAccount acc;
+
+	            if (choice == 1) {
+	                acc = new BankAccount(name);
+
+	            } else if (choice == 2) {
+
+	                System.out.println("Enter initial deposit:");
+	                double dep = sc.nextDouble();
+	                sc.nextLine();
+	                acc = new BankAccount(name, dep);
+
+	            } else if (choice == 3) {
+
+	                System.out.println("Enter initial deposit:");
+	                double dep = sc.nextDouble();
+	                sc.nextLine();
+	                System.out.println("Enter account type (Savings/Current):");
+	                String type = sc.nextLine();
+	                acc = new BankAccount(name, dep, type);
+
+	            } else {
+	                System.out.println("Invalid option! Skipping...");
+	                count++;
+	                continue;
+	            }
+
+	            // Display account details
+	            System.out.println("\n--- Account Created ---");
+	            acc.displayInfo();
+
+	            // Deposit
+	            System.out.println("\nEnter amount to deposit:");
+	            double amt = sc.nextDouble();
+	            sc.nextLine();
+
+	            System.out.println("Enter deposit type (Cash/Cheque):");
+	            String dtype = sc.nextLine();
+	            acc.deposit(amt, dtype);
+
+	            // Withdraw
+	            System.out.println("\nEnter amount to withdraw:");
+	            double wamt = sc.nextDouble();
+	            sc.nextLine();
+	            acc.withdraw(wamt);
+
+	            // Show total accounts created
+	            System.out.println("\n--- Total Accounts ---");
+	            BankAccount.displayTotalAccounts();
+	            count++;
+	        } while (count < 10);
+	        sc.close();
+	    }
+}

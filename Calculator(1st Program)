@@ -1,0 +1,88 @@
+Write a Java program to demonstrate the concepts 
+a. Scope of variable b. this keyword 
+
+package calcculator;
+
+import java.util.Scanner;
+import java.util.*;
+public class calc {
+    //static variable
+    static int n1;
+    static int n2;
+    
+    
+    //instance variables
+    private int a;
+    private int b;
+    
+    
+    //constructor
+    calc(int a,int b){
+        this.a=a;
+        this.b=b;
+    }
+    public int add(){
+        return this.a+this.b;
+    } 
+     public int sub(){
+        return this.a-this.b;
+    } 
+     public int mul(){
+        return this.a*this.b;
+    } 
+     public int div(){
+        if(this.b==0){
+            System.out.println("Division with ");
+            return 0;
+        }else{
+        return this.a/this.b;
+    } }
+     
+     
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        
+        
+        while(true){
+        System.out.println("Calculator\n");
+        System.out.println("Enter value a: \t");
+        n1=sc.nextInt();
+        
+        
+        System.out.println("Enter value b: ");
+        n2=sc.nextInt();
+        calc cal=new calc(n1,n2);
+        System.out.println("**Enter operation: \n");
+        
+        System.out.println(" Addition (+)");
+        System.out.println(" Subtraction (-)");
+        System.out.println(" Multiplication (*)");
+        System.out.println(" Division (/)");
+        
+        System.out.print("Enter your choice (1-4): ");
+        char choice = sc.next().charAt(0);
+        int result=0;
+     
+        switch (choice) {
+            case '+': result=cal.add();
+            break;
+              case '-': result=cal.sub();
+            break;
+              case '*': result=cal.mul();
+            break;
+              case '/': result=cal.div();
+            break;
+           
+        }
+        System.out.println("result: "+result);
+        
+    }
+    }}
+
+
+
+
+
+
+
+

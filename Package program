@@ -1,0 +1,77 @@
+// Circle.java
+package shapes;
+
+public class Circle {
+	    public double area(double radius) { 
+	        return Math.PI * radius * radius; 
+	    } 
+	 
+	    public void show() { 
+	        System.out.println("Circle class method called"); 
+	    } 
+	}
+
+  
+//Square.java
+package shapes;
+
+public class Square {
+    public double area(double side) 
+ { 
+        return side * side; 
+    } 
+    public void show() { 
+        System.out.println("Square class method called"); 
+    } 
+}
+
+//Triangle.java
+package shapes;
+
+public class Triangle{ 
+	    public double area(double base, double height) 
+	 { 
+	        return 0.5 * base * height; 
+	    } 
+	    public void show() { 
+	        System.out.println("triangle class method called");
+	        }
+	    
+	}
+
+//main.java
+
+package mainclass;
+import java.util.Scanner; 
+import shapes.*; 
+ 
+public class mainclass { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+ 
+        // Square 
+        System.out.println("Enter side of Square: "); 
+        double side = sc.nextDouble(); 
+        Square sq = new Square(); 
+        System.out.println("Area of Square: " + sq.area(side)); 
+        sq.show(); 
+ 
+        // Triangle 
+        System.out.println("Enter base of Triangle: "); 
+        double base = sc.nextDouble(); 
+        System.out.println("Enter height of Triangle: "); 
+        double height = sc.nextDouble(); 
+        Triangle tri = new Triangle(); 
+        System.out.println("Area of Triangle: " + tri.area(base, height)); 
+        tri.show(); 
+ 
+        // Circle 
+        System.out.println("Enter radius of Circle: "); 
+        double radius = sc.nextDouble(); 
+        Circle cir = new Circle(); 
+        System.out.println("Area of Circle: " + cir.area(radius)); 
+        cir.show(); 
+ 
+        sc.close();
+    }
+}

@@ -1,0 +1,115 @@
+package sev;
+
+import java.util.Scanner;
+
+class Thread1 extends Thread {
+    public void run() {
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread1: " + i);
+                System.out.println("Thread1 State: " + this.getState());
+                Thread.yield();
+                Thread.sleep(2000);   // TIMED_WAITING
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread1 interrupted");
+        }
+        System.out.println("Thread1 finished (TERMINATED).");
+    }
+}
+
+class Thread2 extends Thread {
+    public void run() {
+        try {
+            for (int i = 10; i <= 15; i++) {
+                System.out.println("Thread2: " + i);
+                System.out.println("Thread2 State : " + this.getState());
+                Thread.yield();
+                Thread.sleep(2000);   // TIMED_WAITING
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread2 interrupted");
+        }
+        System.out.println("Thread2 finished (TERMINATED).");
+    }
+}
+
+public class Seventh {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Thread1 t1 = new Thread1();
+        Thread2 t2 = new Thread2();
+
+        while (true) {
+
+            System.out.println("\n1. Start Thread1");
+            System.out.println("2. Start Thread2");
+            System.out.println("3. Start Both Threads");
+            System.out.println("4. Show Thread States");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+
+                    // if already terminated, create again
+                    if (t1.getState() == Thread.State.TERMINATED) {
+                        t1 = new Thread1();
+                    }
+
+                    if (!t1.isAlive()) {
+                        t1.start();
+                    } else {
+                        System.out.println("Thread1 already running");
+                    }
+                    break;
+
+                case 2:
+
+                    if (t2.getState() == Thread.State.TERMINATED) {
+                        t2 = new Thread2();
+                    }
+
+                    if (!t2.isAlive()) {
+                        t2.start();
+                    } else {
+                        System.out.println("Thread2 already running");
+                    }
+                    break;
+
+                case 3:
+
+                    if (t1.getState() == Thread.State.TERMINATED) {
+                        t1 = new Thread1();
+                    }
+                    if (t2.getState() == Thread.State.TERMINATED) {
+                        t2 = new Thread2();
+                    }
+
+                    if (!t1.isAlive()) t1.start();
+                    if (!t2.isAlive()) t2.start();
+
+                    break;
+
+                case 4:
+                    System.out.println("Thread1 State: " + t1.getState());
+                    System.out.println("Thread2 State: " + t2.getState());
+                    break;
+
+                case 5:
+                    System.out.println("Exiting program");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}

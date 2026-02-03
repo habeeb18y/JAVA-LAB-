@@ -1,0 +1,125 @@
+//Abstraction program
+//PrinterDemo.java
+
+package abstrac;
+	import java.util.Scanner; 
+	 
+	abstract class Printer { 
+	    abstract void configuration(); 
+	    abstract void display(); 
+	} 
+	 
+	class DotMatrix extends Printer { 
+	    public void configuration() { 
+	        System.out.println("Dot-Matrix: 250 cps, 180 dpi"); 
+	    } 
+	    public void display() { 
+	        System.out.println("Dot-Matrix Printer: Good for multi-copy printing."); 
+	    } 
+	} 
+	 
+	class LaserJet extends Printer { 
+	    public void configuration() { 
+	        System.out.println("LaserJet: 35 ppm, 1200 dpi"); 
+	    } 
+	    public void display() { 
+	        System.out.println("LaserJet Printer: Fast and high quality."); 
+	    } 
+	} 
+	 
+	public class PrinterDemo { 
+	    public static void main(String[] args) { 
+	        Scanner sc = new Scanner(System.in); 
+	        Printer p; 
+	        int choice = 0; 
+	 
+	        while (choice != 3) { 
+	            System.out.println("\n--- Printer Menu ---"); 
+	            System.out.println("1. Dot-Matrix"); 
+	            System.out.println("2. LaserJet"); 
+	            System.out.println("3. Exit"); 
+	            System.out.print("Enter choice: "); 
+	            choice = sc.nextInt(); 
+	 
+	            if (choice == 1) { 
+	                p = new DotMatrix(); 
+	                p.configuration(); 
+	                p.display(); 
+	            } else if (choice == 2) { 
+	                p = new LaserJet(); 
+	                p.configuration(); 
+	                p.display(); 
+	            } else if (choice == 3) { 
+	                System.out.println("Exiting..."); 
+	            } else { 
+	                System.out.println("Invalid choice!"); 
+	            } 
+	        } 
+	 
+	        sc.close(); 
+	    } 
+	} 
+
+*/========Run Time Polymorphism==========*/
+
+//main.java
+package abstrac;
+
+//interface Vehicle that defines the basic operations for vehicles 
+interface Vehicle{ 
+void start(); 
+void stop(); 
+} 
+//Abstract class that provides a common base for vehicles 
+abstract class VehicleBase{ 
+abstract void Drive(); 
+} 
+//class Car and MotorBike that implement the Vehicle interface and extend VehicleBase 
+class Car extends VehicleBase implements Vehicle { 
+@Override 
+public void start() { 
+System.out.println("Car is starting"); 
+} 
+//override method to stop the car 
+@Override 
+public void stop() { 
+System.out.println("Car is stopping"); 
+} 
+@Override 
+void Drive() { 
+System.out.println("Car is driving"); 
+} 
+} 
+class MotorBike extends VehicleBase implements Vehicle { 
+@Override 
+public void start() { 
+      System.out.println("Bike is starting"); 
+  } 
+
+  @Override 
+  public void stop() { 
+      System.out.println("Bike is stopping"); 
+  } 
+
+  @Override 
+  void Drive() { 
+      System.out.println("Bike is driving"); 
+  } 
+} 
+//main class to demonstrate the functionality 
+public class Main { 
+  public static void main(String[] args) { 
+      //polymorphic behavior of vehicles  
+      // using the Vehicle interface and VehicleBase abstract class 
+      // creating instances of Car and MotorBike and invoking their methods 
+      Vehicle car = new Car(); 
+      car.start(); 
+      car.stop(); 
+      ((Car) car).Drive(); 
+
+      Vehicle bike = new MotorBike(); 
+      bike.start(); 
+      bike.stop(); 
+      ((MotorBike) bike).Drive(); 
+  } 
+} 
